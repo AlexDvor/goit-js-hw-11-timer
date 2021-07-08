@@ -3,6 +3,6 @@ parcelRequire=function(e,r,t,n){var i,o="function"==typeof parcelRequire&&parcel
 },{}],"yCUT":[function(require,module,exports) {
 class t{constructor({selector:t,targetDate:e}){this.timerId=null,this.selector=t,this.targetDate=e,this.start()}start(){this.timerId=setInterval(()=>{const t=this.targetDate-Date.now(),{days:e,hours:s,mins:a,secs:r}=this.getRefs();e.textContent=this.pad(Math.floor(t/864e5)),s.textContent=this.pad(Math.floor(t%864e5/36e5)),a.textContent=this.pad(Math.floor(t%36e5/6e4)),r.textContent=this.pad(Math.floor(t%6e4/1e3))},1e3)}getRefs(){return{days:document.querySelector(`${this.selector} [data-value="days"]`),hours:document.querySelector(`${this.selector} [data-value="hours"]`),mins:document.querySelector(`${this.selector} [data-value="mins"]`),secs:document.querySelector(`${this.selector} [data-value="secs"]`)}}pad(t){return String(t).padStart(2,"0")}}const e=new t({selector:"#timer-1",targetDate:new Date("Dec 31, 2021")});
 },{}],"Focm":[function(require,module,exports) {
-"use strict";require("./sass/main.scss"),require("./js/timer"),require("./js/test");
-},{"./sass/main.scss":"clu1","./js/timer":"yCUT","./js/test":"clu1"}]},{},["Focm"], null)
-//# sourceMappingURL=/goit-js-hw-11-timer/src.0ffb7187.js.map
+"use strict";require("./sass/main.scss"),require("./js/timer");
+},{"./sass/main.scss":"clu1","./js/timer":"yCUT"}]},{},["Focm"], null)
+//# sourceMappingURL=/goit-js-hw-11-timer/src.2251d357.js.map
