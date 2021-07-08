@@ -1,31 +1,60 @@
-function getTimeComponents(time) {
-    /*
- * Оставшиеся дни: делим значение UTC на 1000 * 60 * 60 * 24, количество
- * миллисекунд в одном дне (миллисекунды * секунды * минуты * часы)
- */
-    const days = this.pad(Math.floor(time / (1000 * 60 * 60 * 24)));
-    /*
- * Оставшиеся часы: получаем остаток от предыдущего расчета с помощью оператора
- * остатка % и делим его на количество миллисекунд в одном часе
- * (1000 * 60 * 60 = миллисекунды * минуты * секунды)
- */
-    const hours = this.pad(Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
-    /*
- * Оставшиеся минуты: получаем оставшиеся минуты и делим их на количество
- * миллисекунд в одной минуте (1000 * 60 = миллисекунды * секунды)
- */
-    const mins = this.pad(Math.floor((time % (1000 * 60 * 60)) / (1000 * 60)));
-    /*
- * Оставшиеся секунды: получаем оставшиеся секунды и делим их на количество
- * миллисекунд в одной секунде (1000)
- */
-    const secs = this.pad(Math.floor((time % (1000 * 60)) / 1000));
 
-    return {days, hours, mins, secs };
-  }
+class CountdownTimer {
+  constructor({ selector, targetDate }) {
+    this.timerId = null;
+    this.selector = selector;
+    this.targetDate = targetDate;
 
-  function pad(value) {
+    this.start()
+      
+    };
+    
+    start() {
+  this.timerId = setInterval(() => {
+    const time = this.targetDate - Date.now();
+    const { days, hours, mins, secs } = this.getRefs();
+
+    days.textContent = this.pad(Math.floor(time / (1000 * 60 * 60 * 24)));
+
+    hours.textContent = this.pad(Math.floor(
+      (time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+    ));
+
+    mins.textContent = this.pad(Math.floor(
+      (time % (1000 * 60 * 60)) / (1000 * 60),
+    ));
+    
+    secs.textContent = this.pad(Math.floor((time % (1000 * 60)) / 1000));
+  }, 1000);
+    }
+    
+
+    getRefs() {
+    return {
+      days: document.querySelector(
+        `${this.selector} [data-value="days"]`,
+      ),
+      hours: document.querySelector(
+        `${this.selector} [data-value="hours"]`,
+      ),
+      mins: document.querySelector(
+        `${this.selector} [data-value="mins"]`,
+      ),
+      secs: document.querySelector(`${this.selector} [data-value="secs"]`),
+    };
+    };
+    
+
+    pad(value) {
     return String(value).padStart(2, '0');
-  }
+    };
+    
+};
 
- 
+  
+
+const countdownTimer = new CountdownTimer({
+  selector: '#timer-1',
+  targetDate: new Date('Dec 24, 2021'),
+
+});
